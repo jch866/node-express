@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block main %}
+<div class="panel-heading">
+    <ol class="breadcrumb">
+        <li><a href="/admin">后台管理</a></li>
+        <li class="active">编辑分类</li>
+    </ol>
+</div>
+<div class="panel-body">
+     <h4>编辑分类 - {{item.name}}</h4>
+    <form class="form-inline" method="post">
+        <div class="form-group">
+            <label for="cate">分类名字</label>
+            <input type="text" class="form-control" value="{{item.name}}" id="cate" placeholder="请输入分类名字" name='category'>
+        </div>
+
+        <button type="submit" class="btn btn-default">修改</button>
+    </form>
+</div>
+{% endblock %}

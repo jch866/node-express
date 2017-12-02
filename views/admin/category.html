@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block main %}
+<div class="panel-heading">
+    <ol class="breadcrumb">
+        <li><a href="/admin">后台管理</a></li>
+        <li class="active">分类列表</li>
+    </ol>
+</div>
+<div class="panel-body">
+    {{msg}}
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>分类名</th>
+            <th>操作</th>
+        </tr>
+        {% for i in lists %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{i._id.toString()}}</td>
+            <td>{{i.name}}</td>
+            <td><a href="/admin/category/edit?id={{i._id.toString()}}">修改</a> |
+                <a href="/admin/category/del?id={{i._id.toString()}}">删除</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% include 'pagination.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block main %}
+<div class="panel-heading">
+    <ol class="breadcrumb">
+        <li><a href="/admin">后台管理</a></li>
+        <li class="active">添加分类</li>
+    </ol>
+</div>
+<div class="panel-body">
+    <form class="form-inline" method="post">
+        <div class="form-group">
+            <label for="cate">分类名字</label>
+            <input type="text" class="form-control" id="cate" placeholder="请输入分类名字" name='category'>
+        </div>
+
+        <button type="submit" class="btn btn-default">添加分类</button>
+    </form>
+</div>
+{% endblock %}

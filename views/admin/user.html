@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block main %}
+<div class="panel-heading">
+    <ol class="breadcrumb">
+        <li><a href="/admin">后台管理</a></li>
+        <li class="active">用户列表</li>
+    </ol>
+</div>
+<div class="panel-body">
+    <table class="table table-striped">
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>用户名</th>
+            <th>密码</th>
+            <th>是不是管理员</th>
+        </tr>
+        {% for i in lists %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{i._id.toString()}}</td>
+            <td>{{i.user}}</td>
+            <td>{{i.pwd}}</td>
+            <td>{% if i.isAdmin%}是{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% include 'pagination.html' %}
+</div>
+{% endblock %}

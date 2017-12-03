@@ -38,7 +38,6 @@ router.get('/',function(req,res,next){
         return Cate.find()
     }).then(function (rs) {
         data.navs = rs;
-      console.log(data.conLists[0])
         res.render('main/index',{
             //userInfo:req.info, //发送到模板的数据
             data
@@ -63,7 +62,6 @@ router.get('/view',function (req,res,next) {
     data.cate_id = cate_id;
     Content.findOne({_id:data.article_id}).populate('user category').then(function (rs) {
         data.article = rs;
-        console.log(data)
         return Cate.find();
     }).then(function (navs) {
         data.navs = navs;

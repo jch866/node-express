@@ -92,11 +92,11 @@
                     <h4 class="title">登录</h4>
 
                     <div class=" login">
-                        {% if userInfo._id %}
+                        {% if data.userInfo._id %}
                         <div id="info" >
                             <h4>用户信息</h4>
-                            <p class="info">{{userInfo.user}}</p>
-                            {% if userInfo.isAdmin %}
+                            <p class="info">{{data.userInfo.user}}</p>
+                            {% if data.userInfo.isAdmin %}
                             <p class="info">hello,管理员！<a href="/admin">进入后台管理 </a></p>
                             {% else %}
                             <p class="info">hello,欢迎光临</p>

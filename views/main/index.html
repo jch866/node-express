@@ -30,15 +30,18 @@
 					</div>
 					<div class="collapse navbar-collapse" id="main-menu">
 						<ul class="menu">
-							<li class="nav-current" role="presentation"><a href="/">首页</a></li>
-							{% for item in navs %}
-								<li role="presentation"><a href="javascript:;">{{item.name}}</a></li>
+							{% if !data.cate_id %}
+							<li class="nav-current" ><a href="/">首页</a></li>
+							{% else %}
+							<li ><a href="/">首页</a></li>
+							{% endif %}
+							{% for item in data.navs %}
+							 	{% if item._id.toString()==data.cate_id %}
+								<li  class="nav-current" ><a href="/?cate_id={{item._id.toString()}}">{{item.name}}</a></li>
+								{% else %}
+								<li ><a href="/?cate_id={{item._id.toString()}}">{{item.name}}</a></li>
+								{% endif %}
 							{% endfor %}
-							<!--<li role="presentation"><a href="javascript:;">论坛</a></li>-->
-							<!--<li role="presentation"><a href="javascript:;">快捷手册</a></li>-->
-							<!--<li role="presentation"><a href="http://docs.ghostchina.com/zh/">中文文档</a></li>-->
-							<!--<li role="presentation"><a href="/download/">下载</a></li>-->
-							<!--<li role="presentation"><a href="/about/">关于</a></li>-->
 						</ul>
 					</div>
 				</div>
@@ -49,47 +52,78 @@
 
 			<div class="row">
 				<main class="col-md-8 main-content">
-					<article id="109" class="post tag-android tag-ke-hu-duan">
-						<div class="post-head">
-							<h1 class="post-title"><a href="/android-app-for-ghost/">Android 版 Ghost 客户端来了！</a></h1>
-							<div class="post-meta">
-								<span class="author">作者：<a href="/author/wangsai/">王赛</a></span>
-								<time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">2017年11月8日</time>
-							</div>
-						</div>
-						<div class="featured-media">
-							<a href="/android-app-for-ghost/"><img  src="http://static.ghostchina.com/image/c/06/765c76cb1ca259dd8fe8002459bbc.jpg" alt="Android 版 Ghost 客户端来了！"></a>
-						</div>
-						<div class="post-content">
-							<p>Ghost 从一开始就支持响应式 Web 使用体验，但是我们今天仍然向前迈出了一大步 -- 推出 Android 平台原生 APP ！ 我们一直试图为 Ghost 用户构建一个可靠的移动端 Web 体验，但不可避免地，它在它所能做的事情上仍然是相当受限的。即便是在 2017 年的</p>
-						</div>
-						<div class="post-permalink">
-							<a href="/android-app-for-ghost/" class="btn btn-default">阅读全文</a>
-						</div>
+					<!--<article id="109" class="post">-->
+						<!--<div class="post-head">-->
+							<!--<h1 class="post-title"><a href="/android-app-for-ghost/">Android 版 Ghost 客户端来了！</a></h1>-->
+							<!--<div class="post-meta">-->
+								<!--<span class="author">作者：<a href="/author/wangsai/">王赛</a></span>-->
+								<!--<time class="post-date" datetime="2017年11月8日星期三下午4点44分" title="2017年11月8日星期三下午4点44分">2017年11月8日</time>-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div class="featured-media">-->
+							<!--<a href="/android-app-for-ghost/"><img  src="http://static.ghostchina.com/image/c/06/765c76cb1ca259dd8fe8002459bbc.jpg" alt="Android 版 Ghost 客户端来了！"></a>-->
+						<!--</div>-->
+						<!--<div class="post-content">-->
+							<!--<p>Ghost 从一开始就支持响应式 Web 使用体验，但是我们今天仍然向前迈出了一大步 &#45;&#45; 推出 Android 平台原生 APP ！ 我们一直试图为 Ghost 用户构建一个可靠的移动端 Web 体验，但不可避免地，它在它所能做的事情上仍然是相当受限的。即便是在 2017 年的</p>-->
+						<!--</div>-->
+						<!--<div class="post-permalink">-->
+							<!--<a href="/android-app-for-ghost/" class="btn btn-default">阅读全文</a>-->
+						<!--</div>-->
 
-						<footer class="post-footer clearfix">
-							<div class="pull-left tag-list">
-								<i class="fa fa-folder-open-o"></i>
-								<a href="/tag/android/">Android</a>, <a href="/tag/ke-hu-duan/">客户端</a>
-							</div>
-							<div class="pull-right share">
-							</div>
-						</footer>
-					</article>
+						<!--<footer class="post-footer clearfix">-->
+							<!--<div class="pull-left tag-list">-->
+								<!--<i class="fa fa-folder-open-o"></i>-->
+								<!--<a href="/tag/android/">Android</a>, <a href="/tag/ke-hu-duan/">客户端</a>-->
+							<!--</div>-->
+							<!--<div class="pull-right share">-->
+							<!--</div>-->
+						<!--</footer>-->
+					<!--</article>-->
+					<!--<article id="106" class="post">-->
+
+						<!--<div class="post-head">-->
+							<!--<h1 class="post-title"><a href="/ghost-1-0-released/">Ghost 1.0 版本正式发布</a></h1>-->
+							<!--<div class="post-meta">-->
+								<!--<span class="author">作者：<a href="/author/wangsai/">王赛</a></span>-->
+								<!--<time class="post-date" datetime="2017年7月29日星期六凌晨1点45分" title="2017年7月29日星期六凌晨1点45分">2017年7月29日</time>-->
+							<!--</div>-->
+						<!--</div>-->
+						<!--<div class="featured-media">-->
+							<!--<a href="/ghost-1-0-released/"><img src="http://static.ghostchina.com/image/4/c2/804903aef2bdfcd0e4eb95b27ca77.jpg" alt="Ghost 1.0 版本正式发布"></a>-->
+						<!--</div>-->
+						<!--<div class="post-content">-->
+							<!--<p>大约四年前，我们在 Kickstarter 上推出了一个还处在原型阶段的 Ghost，这个小小的原型寄托了我们的一个想法，那就是创建 Web 上的下一代伟大的开源博客平台。 在初期阶段，我们真的只是专注于让所有功能能够运转起来。Ghost 是 Node.js 平台上为数不多的一个</p>-->
+						<!--</div>-->
+						<!--<div class="post-permalink">-->
+							<!--<a href="/ghost-1-0-released/" class="btn btn-default">阅读全文</a>-->
+						<!--</div>-->
+
+						<!--<footer class="post-footer clearfix">-->
+							<!--<div class="pull-left tag-list">-->
+								<!--<i class="fa fa-folder-open-o"></i>-->
+
+							<!--</div>-->
+							<!--<div class="pull-right share">-->
+							<!--</div>-->
+						<!--</footer>-->
+					<!--</article>-->
+
+
+					{% for con in data.conLists %}
+
 					<article id="106" class="post">
-
 						<div class="post-head">
-							<h1 class="post-title"><a href="/ghost-1-0-released/">Ghost 1.0 版本正式发布</a></h1>
+							<h1 class="post-title">{{con.title}}</h1>
 							<div class="post-meta">
-								<span class="author">作者：<a href="/author/wangsai/">王赛</a></span>
-								<time class="post-date" datetime="2017年7月29日星期六凌晨1点45分" title="2017年7月29日星期六凌晨1点45分">2017年7月29日</time>
+								<span class="author">作者：{{data.user.user}}</span>
+								<time class="post-date">{{con.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
 							</div>
 						</div>
-						<div class="featured-media">
-							<a href="/ghost-1-0-released/"><img src="http://static.ghostchina.com/image/4/c2/804903aef2bdfcd0e4eb95b27ca77.jpg" alt="Ghost 1.0 版本正式发布"></a>
-						</div>
+						<!--<div class="featured-media">-->
+							<!--<a href="/ghost-1-0-released/"><img src="http://static.ghostchina.com/image/4/c2/804903aef2bdfcd0e4eb95b27ca77.jpg" alt="Ghost 1.0 版本正式发布"></a>-->
+						<!--</div>-->
 						<div class="post-content">
-							<p>大约四年前，我们在 Kickstarter 上推出了一个还处在原型阶段的 Ghost，这个小小的原型寄托了我们的一个想法，那就是创建 Web 上的下一代伟大的开源博客平台。 在初期阶段，我们真的只是专注于让所有功能能够运转起来。Ghost 是 Node.js 平台上为数不多的一个</p>
+							{{con.des}}
 						</div>
 						<div class="post-permalink">
 							<a href="/ghost-1-0-released/" class="btn btn-default">阅读全文</a>
@@ -104,13 +138,19 @@
 							</div>
 						</footer>
 					</article>
-
-
-
-
+					{% endfor %}
 					<nav class="pagination" role="navigation">
-						<span class="page-number">第 1 页 ⁄ 共 9 页</span>
-						<a class="older-posts" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+						{% if data.page <= 1 %}
+							<span>没有上一页</span>
+						{% else  %}
+							<span><a href="/?page={{data.page-1}}">上一页</a></span>
+						{% endif %}
+						<span>共有{{data.count}}纪录;第 {{data.page}} 页 ⁄ 共 {{data.pages}} 页；每页显示{{data.limit}}条</span>
+						{% if data.page <= 1 %}
+						<span>没有下一页</span>
+						{% else %}
+						<span><a href="/?page={{data.page+1}}">上一页</a></span>
+						{% endif %}
 					</nav>
 
 

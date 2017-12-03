@@ -3,6 +3,6 @@ config/*
 npm-debug.log
 app1.js
 note.txt
-node_modules
+node_modules/
 coverage
-db
+db/

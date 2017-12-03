@@ -20,7 +20,7 @@ router.use(function (req,res,next) {
 router.get('/content',function (req,res,next) {
     let page = req.query.page || 1; //当前页数
     // 通过req.query.page来指定   http://localhost:8080/admin/user?page=1  要对page做些校验，比如是不是数字
-    let limit = 2; //每页条数
+    let limit = 6; //每页条数
     Content.count().then(function(count){
         //console.log(count) //查询用户总数
         //从数据库里读取所有记录
@@ -44,6 +44,7 @@ router.get('/content',function (req,res,next) {
     })
 
 })
+
 //添加内容分类 显示添加页 GET
 router.get('/content/add',function (req,res,next) {
     Cate.find().then(function (cates) {

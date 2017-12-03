@@ -6,19 +6,23 @@ var router = express.Router();
 var Cate = require('../models/category');
 var Content = require('../models/content');
 
-//首页数据展示
-router.get('/',function(req,res,next){
-    var cate_id = req.query.cate_id ||'';
+var data={};
+router.use(function (req,res,next) {   //进入到main里面的都要用到这个数据  相当于公共数据
     var page = req.query.page ||'';
-    var where = {};
-    var data = {
+    data = {
+        userInfo:req.info,
         limit:3,
         count:0,
         page,
         conLists:[],
-        pages:0,
-        cate_id,
-    };
+        navs:[]
+    }
+    next()// 可能有promise的作用
+})
+//首页数据展示
+router.get('/',function(req,res,next){
+    var cate_id = req.query.cate_id ||'';
+    var where = {};
     if(cate_id){
         where.category = cate_id;
     }
@@ -34,10 +38,9 @@ router.get('/',function(req,res,next){
         return Cate.find()
     }).then(function (rs) {
         data.navs = rs;
-        console.log(data)
-       // console.log(data)
+      console.log(data.conLists[0])
         res.render('main/index',{
-            userInfo:req.info, //发送到模板的数据
+            //userInfo:req.info, //发送到模板的数据
             data
         });
     })
@@ -51,9 +54,23 @@ router.get('/',function(req,res,next){
     //     });
     // })
 
-
-
-
     //next()
+})
+router.get('/view',function (req,res,next) {
+    var article_id = req.query.article_id||'';
+    var cate_id = req.query.cate_id;
+    data.article_id = article_id;
+    data.cate_id = cate_id;
+    Content.findOne({_id:data.article_id}).populate('user category').then(function (rs) {
+        data.article = rs;
+        console.log(data)
+        return Cate.find();
+    }).then(function (navs) {
+        data.navs = navs;
+        res.render('main/view',{
+            data
+        })
+    })
+
 })
 module.exports = router;

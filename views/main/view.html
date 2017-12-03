@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block main %}
+<article id="106" class="post">
+	<div class="post-head">
+		<h1 class="post-title">{{data.article.title}}</h1>
+		<div class="post-meta">
+			<span class="author">作者：{{data.article.user.user}}</span>
+			<time class="post-date">{{data.article.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
+		</div>
+	</div>
+	<!--<div class="featured-media">-->
+	<!--<a href="/ghost-1-0-released/"><img src="http://static.ghostchina.com/image/4/c2/804903aef2bdfcd0e4eb95b27ca77.jpg" alt="Ghost 1.0 版本正式发布"></a>-->
+	<!--</div>-->
+	<div class="post-content">
+		{{data.article.des}}
+	</div>
+	<div class="post-content">
+		<p>详情内容：</p>
+		{{data.article.content}}
+	</div>
+
+	<footer class="post-footer clearfix">
+		<div class="pull-left tag-list">
+			<i class="fa fa-folder-open-o"></i>
+
+		</div>
+		<div class="pull-right share">
+		</div>
+	</footer>
+</article>
+{% endblock %}

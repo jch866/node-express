@@ -6,3 +6,4 @@ note.txt
 node_modules/
 coverage
 db/
+.idea/workspace.xml

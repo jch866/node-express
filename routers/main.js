@@ -9,12 +9,12 @@ var Content = require('../models/content');
 //首页数据展示
 router.get('/',function(req,res,next){
     var cate_id = req.query.cate_id ||'';
-    var page = req.body.page ||'';
+    var page = req.query.page ||'';
     var where = {};
     var data = {
-        limit:1,
+        limit:3,
         count:0,
-        page:page,
+        page,
         conLists:[],
         pages:0,
         cate_id,
@@ -22,7 +22,7 @@ router.get('/',function(req,res,next){
     if(cate_id){
         where.category = cate_id;
     }
-    Content.count().then(function (n) {
+    Content.count().where(where).then(function (n) {
             data.count = n;
             data.pages = Math.ceil(n/data.limit);
             data.page = Math.min(data.pages,data.page); //取值不能超过总页数
@@ -34,6 +34,7 @@ router.get('/',function(req,res,next){
         return Cate.find()
     }).then(function (rs) {
         data.navs = rs;
+        console.log(data)
        // console.log(data)
         res.render('main/index',{
             userInfo:req.info, //发送到模板的数据

@@ -127,4 +127,21 @@ router.post('/comment/post',function(req,res){
     })
 });
 
+
+
+router.get('/comment',function (req,res) {
+    console.log(req.query);
+    var id = req.query.article_id || '';
+
+    if(!id){
+        res.send('请带上文章ID');
+        return
+    }
+    Content.findOne({_id:id}).then(function (rs) {
+        postdata.lists= rs.comments;
+        postdata.message = '获取当前评论成功';
+        res.json(postdata)
+    })
+
+})
 module.exports = router;

@@ -18,6 +18,18 @@ var vm = new Vue({
         }
     },
     methods : {
+        getComments(){
+            var vm = this;
+            if(!vm.$refs.hideId){return};
+            var article_id = vm.$refs.hideId.value;
+            let url = '/api/comment?article_id='+vm.$refs.hideId.value;
+            axios.get(url).then((res)=>{
+                console.log(res);
+                if(!res.data.code) {
+                    vm.comments = res.data.lists;
+                }
+            })
+        },
         goReg(){
             vm.islogin = !vm.islogin;
             vm.reg_user='';
@@ -92,5 +104,8 @@ var vm = new Vue({
                 }
             })
         }
+    },
+    mounted:function(){
+       this.getComments()
     }
 })

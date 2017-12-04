@@ -72,4 +72,7 @@ router.get('/view',function (req,res,next) {
     })
 
 })
+
+
+
 module.exports = router;

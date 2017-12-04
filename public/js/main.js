@@ -14,7 +14,8 @@ var vm = new Vue({
             hidebox:true,
             myinfo:false,
             comment_con:'',
-            comments:[]
+            comments:[],
+            com_len:''
         }
     },
     methods : {
@@ -27,6 +28,8 @@ var vm = new Vue({
                 console.log(res);
                 if(!res.data.code) {
                     vm.comments = res.data.lists;
+                    vm.$refs.total.innerHTML = vm.comments.length;
+                    vm.$refs.stotal.innerHTML = vm.comments.length;
                 }
             })
         },
@@ -100,7 +103,8 @@ var vm = new Vue({
                 if(newrs.code ===0) {
                     vm.comment_con = '';
                     vm.comments = newrs.data.comments;
-                    console.log(vm.comments)
+                    vm.$refs.total.innerHTML = vm.comments.length;
+                    vm.$refs.stotal.innerHTML = vm.comments.length;
                 }
             })
         }

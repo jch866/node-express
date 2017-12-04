@@ -7,7 +7,7 @@
 			<span class="author">作者：{{data.article.user.user}}</span>
 			<time class="post-date">{{data.article.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
 			<span class="author">阅读：{{data.article.views}}</span>
-			<span class="author">评论：{{data.article.comments.length}}</span>
+			<span class="author">评论：<span ref="stotal"></span></span>
 		</div>
 	</div>
 	<!--<div class="featured-media">-->
@@ -22,19 +22,10 @@
 		{{data.article.content}}
 	</div>
 
-
-	<footer class="post-footer clearfix">
-		<div class="pull-left tag-list">
-			<i class="fa fa-folder-open-o"></i>
-
-		</div>
-		<div class="pull-right share">
-		</div>
-	</footer>
 </article>
 <div class="post">
 	<div class="comment-head">
-		<h4><span>一共有条{{data.article.comments.length}}评论</span>评论</h4>
+		<h4><span>一共有条 <mark ref="total"></mark>评论</span>评论</h4>
 		{% if data.userInfo.user!=='' %}
 		<form class="form-horizontal">
 			<input type='hidden' ref="hideId" value="{{data.article._id.toString()}}" >

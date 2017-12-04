@@ -130,7 +130,6 @@ router.post('/comment/post',function(req,res){
 
 
 router.get('/comment',function (req,res) {
-    console.log(req.query);
     var id = req.query.article_id || '';
 
     if(!id){

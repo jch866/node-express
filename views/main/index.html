@@ -1,7 +1,13 @@
 {% extends 'layout.html' %}
-{% block main %}
+{% block content %}
 {% if data.conLists.length ===0 %}
-<p>当前分类下没有文章</p>
+<div class="about-author clearfix">
+	<div class="details">
+		<div class="author">
+			当前分类下没有文章
+		</div>
+	</div>
+</div>
 {% else %}
 {% for con in data.conLists %}
 
@@ -11,6 +17,8 @@
 		<div class="post-meta">
 			<span class="author">作者：{{data.user.user}}</span>
 			<time class="post-date">{{con.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
+			<span class="author">阅读：{{con.views}}</span>
+			<span class="author">评论：{{con.comments.length}}</span>
 		</div>
 	</div>
 	<!--<div class="featured-media">-->

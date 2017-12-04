@@ -24,5 +24,9 @@ module.exports = new Schema({
     addtime:{
         type: Date,
         default:new Date()
+    },
+    comments:{
+        type:Array,
+        default:[]
     }
 });

@@ -22,6 +22,7 @@ router.use(function (req,res,next) {   //进入到main里面的都要用到这�
 //首页数据展示
 router.get('/',function(req,res,next){
     var cate_id = req.query.cate_id ||'';
+    data.cate_id =cate_id;
     var where = {};
     if(cate_id){
         where.category = cate_id;
@@ -38,30 +39,30 @@ router.get('/',function(req,res,next){
         return Cate.find()
     }).then(function (rs) {
         data.navs = rs;
+       // console.log(data)
         res.render('main/index',{
             //userInfo:req.info, //发送到模板的数据
             data
         });
     })
 
-    //判断当前用户是不是管理员
-    //获取分类导航的数据
-    // Cate.find().sort({_id:-1}).then(function (rs) {
-    //     res.render('main/index',{
-    //         userInfo:req.info, //发送到模板的数据
-    //         navs:rs
-    //     });
-    // })
 
     //next()
 })
+
+//文章详情页
 router.get('/view',function (req,res,next) {
     var article_id = req.query.article_id||'';
     var cate_id = req.query.cate_id;
     data.article_id = article_id;
     data.cate_id = cate_id;
+    if(!article_id ){
+        res.send('请求错误,找不到文章id')
+    }
     Content.findOne({_id:data.article_id}).populate('user category').then(function (rs) {
         data.article = rs;
+        rs.views ++;
+        rs.save();
         return Cate.find();
     }).then(function (navs) {
         data.navs = navs;

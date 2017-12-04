@@ -12,7 +12,9 @@ var vm = new Vue({
             tip:'',
             istip:false,
             hidebox:true,
-            myinfo:false
+            myinfo:false,
+            comment_con:'',
+            comments:[]
         }
     },
     methods : {
@@ -72,6 +74,23 @@ var vm = new Vue({
                 vm.tip = res.data.message
             }
            })
+        },
+        postComment(){
+            let vm = this;
+            let article_id = vm.$refs.hideId.value;
+            let url = '/api/comment/post';
+            axios.post(url,{ // username 和时间可以由后台返回
+                con:vm.comment_con,
+                article_id
+            }).then(function (rs) {
+                console.log(rs.data);
+                newrs = rs.data;
+                if(newrs.code ===0) {
+                    vm.comment_con = '';
+                    vm.comments = newrs.data.comments;
+                    console.log(vm.comments)
+                }
+            })
         }
     }
 })

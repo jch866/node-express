@@ -4,7 +4,9 @@
 var express = require('express');
 var router = express.Router();
 //通过模型类操作数据库存
-var User = require('../models/user')
+var User = require('../models/user');
+// var Cate = require('../models/category');
+var Content = require('../models/content')
 var postdata;
 router.use(function(res,req,next){
     postdata = {
@@ -13,6 +15,8 @@ router.use(function(res,req,next){
     }
     next()
 })
+
+//用户注册的API
 router.post('/user/register',function(req,res,next){
     //console.log(req.body)
 
@@ -54,7 +58,7 @@ router.post('/user/register',function(req,res,next){
             res.json(postdata);
         }
     })
-})
+});
 
 router.post('/user/login',function(req,res){
     var u = req.body.user;
@@ -94,7 +98,33 @@ router.post('/user/login',function(req,res){
 
 router.get('/user/logout',function(req,res){
     req.cookies.set('userInfo',null)
-    postdata.message='退出'
+    postdata.message='退出';
     res.json(postdata);
-})
+});
+
+//提交评论的API
+router.post('/comment/post',function(req,res){
+    var article_id = req.body.article_id||'';
+    var content = req.body.con;
+    var user = req.info.user;
+    var data = {
+        postTime:new Date(),
+        content,
+        user
+    };
+    if(!article_id || !content){
+        postdata.message='没有找到文章id,或者内容不能为空';
+        res.json(postdata);
+        return;
+    }
+    Content.findOne({_id:article_id}).then(function (result) {
+        result.comments.unshift(data);
+        return result.save();
+    }).then(function (newrs) {
+        postdata.data = newrs;
+        postdata.message='添加评论成功';
+        res.json(postdata)
+    })
+});
+
 module.exports = router;

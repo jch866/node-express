@@ -887,3 +887,15 @@ pre {
     height: 30px;
     line-height: 30px;
 }
+
+.comment-head{}
+.comment-head h4{font-size: 16px;}
+.comment-head h4 span{  float: right;font-size: 14px}
+
+.comment-list{font-size: 14px;font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", "Hiragino Sans GB W3", "WenQuanYi Micro Hei", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;}
+.comment-list ul{margin: 0;  padding:0;}
+.comment-list li{list-style:none;margin: 5px 0;border-top: 1px solid #ebebeb}
+.comment-list li p{padding:3px 5px;}
+.comment-list li p span{float: right;}
+
+.login_first{text-align: center;line-height: 34px;height:34px;background: #ebebeb ;color: #e67d23;}

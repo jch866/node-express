@@ -1,23 +1,27 @@
 {% extends 'layout.html' %}
-{% block main %}
+{% block content %}
 <article id="106" class="post">
 	<div class="post-head">
 		<h1 class="post-title">{{data.article.title}}</h1>
 		<div class="post-meta">
 			<span class="author">作者：{{data.article.user.user}}</span>
 			<time class="post-date">{{data.article.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
+			<span class="author">阅读：{{data.article.views}}</span>
+			<span class="author">评论：{{data.article.comments.length}}</span>
 		</div>
 	</div>
 	<!--<div class="featured-media">-->
 	<!--<a href="/ghost-1-0-released/"><img src="http://static.ghostchina.com/image/4/c2/804903aef2bdfcd0e4eb95b27ca77.jpg" alt="Ghost 1.0 版本正式发布"></a>-->
 	<!--</div>-->
 	<div class="post-content">
+		<p>简介内容：</p>
 		{{data.article.des}}
 	</div>
 	<div class="post-content">
 		<p>详情内容：</p>
 		{{data.article.content}}
 	</div>
+
 
 	<footer class="post-footer clearfix">
 		<div class="pull-left tag-list">
@@ -28,4 +32,34 @@
 		</div>
 	</footer>
 </article>
+<div class="post">
+	<div class="comment-head">
+		<h4><span>一共有条{{data.article.comments.length}}评论</span>评论</h4>
+		{% if data.userInfo.user!=='' %}
+		<form class="form-horizontal">
+			<input type='hidden' ref="hideId" value="{{data.article._id.toString()}}" >
+			<textarea class="form-control" rows="3" v-model="comment_con"></textarea>
+			<div class="form-group">
+				<div class="col-sm-offset-10 col-sm-2">
+					<button type="submit" class="btn btn-default" @click.prevent="postComment">提交评论</button>
+				</div>
+			</div>
+		</form>
+		{% else %}
+		<p class="login_first">请先登录!!</p>
+		{% endif %}
+
+	</div>
+	<div class="post-content">
+		<div class="comment-list">
+			<ul v-if="comments.length!=0">
+				<li v-for="item in comments">
+					<p class="author"><span v-text="item.postTime"></span><mark v-text="item.user"></mark></p>
+					<p class="author" v-text="item.content"></p>
+				</li>
+			</ul>
+			<div v-else>没有评论</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

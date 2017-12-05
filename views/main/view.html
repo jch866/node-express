@@ -26,9 +26,10 @@
 <div class="post">
 	<div class="comment-head">
 		<h4><span>一共有条 <mark ref="total"></mark>评论</span>评论</h4>
+		<input type='hidden' ref="hideId" value="{{data.article._id.toString()}}" >
 		{% if data.userInfo.user!=='' %}
 		<form class="form-horizontal">
-			<input type='hidden' ref="hideId" value="{{data.article._id.toString()}}" >
+
 			<textarea class="form-control" rows="3" v-model="comment_con"></textarea>
 			<div class="form-group">
 				<div class="col-sm-offset-10 col-sm-2">

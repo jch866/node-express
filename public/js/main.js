@@ -25,6 +25,7 @@ var vm = new Vue({
             }
         }
     },
+
     methods : {
         show(n){
             var vm = this;

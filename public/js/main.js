@@ -15,10 +15,68 @@ var vm = new Vue({
             myinfo:false,
             comment_con:'',
             comments:[],
-            com_len:''
+            pagecomments:[],
+            com_len:'',
+            pagination:{
+                limit:3,
+                page:1,
+                count:0,
+                pages:0
+            }
         }
     },
     methods : {
+        show(n){
+            var vm = this;
+          if(n===1){
+              if(vm.pagination.page === vm.pagination.pages){
+                  return '没有下一页'
+              }else{
+                  return '下一页'
+              }
+          }
+          if(n === -1){
+              if(vm.pagination.page === 1){
+                  return '没有上一页'
+              }else{
+                  return '上一页'
+              }
+          }
+        },
+        page(){
+            return `${this.pagination.page} / ${this.pagination.pages}`
+        },
+        showPageList(){
+            var vm = this;
+            var all = vm.comments;
+            var p = vm.pagination;
+            p.count = all.length;
+            p.pages = Math.ceil(all.length/p.limit);
+            var start = (p.page - 1)*p.limit;
+            var end = start+p.limit;
+            vm.pagecomments = all.slice(start,end);
+        },
+        go(n){
+            var vm = this;
+            var p = this.pagination;
+            p.page += n;
+            p.page = Math.min(p.page,p.pages);
+            p.page = Math.max(1,p.page);
+            var start = (p.page - 1)*p.limit;
+            var end = start+p.limit;
+            vm.pagecomments = vm.comments.slice(start,end);
+        },
+        timeParse(t){
+            t = new Date(t);
+            var c = function(n){return n>9?n:'0'+n};
+            var ymd = t.getFullYear()+'-'+c((t.getMonth()+1))+'-'+c(t.getDate());
+            var hms = c(t.getHours())+':'+c(t.getMinutes())+':'+c(t.getSeconds());
+            return ymd+' '+hms;
+        },
+        transTime(time){
+            var c =  new Date(time);
+            return this.timeParse(c);
+        },
         getComments(){
             var vm = this;
             if(!vm.$refs.hideId){return};
@@ -28,6 +86,7 @@ var vm = new Vue({
                 console.log(res);
                 if(!res.data.code) {
                     vm.comments = res.data.lists;
+                    vm.showPageList();
                     vm.$refs.total.innerHTML = vm.comments.length;
                     vm.$refs.stotal.innerHTML = vm.comments.length;
                 }
@@ -53,14 +112,10 @@ var vm = new Vue({
                     user:vm.login_user,
                     pwd:vm.login_pwd
                 }).then((res)=>{
-                    console.log(res);
                 if(res.data.code===0){ //登录成功
                     vm.istip = true;
                     vm.tip = '恭喜，登录成功';
                     window.location.reload()
-                    //vm.hidebox = false;
-                    //vm.myinfo=true
-
                 }else{
                     vm.istip = true;
                     vm.tip = res.data.message;
@@ -103,6 +158,8 @@ var vm = new Vue({
                 if(newrs.code ===0) {
                     vm.comment_con = '';
                     vm.comments = newrs.data.comments;
+                    vm.showPageList();
+                    vm.page();
                     vm.$refs.total.innerHTML = vm.comments.length;
                     vm.$refs.stotal.innerHTML = vm.comments.length;
                 }

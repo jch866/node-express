@@ -5,7 +5,7 @@
 		<h1 class="post-title">{{data.article.title}}</h1>
 		<div class="post-meta">
 			<span class="author">作者：{{data.article.user.user}}</span>
-			<time class="post-date">{{data.article.addtime | date('Y-m-d h:i:s',-8*60)}}</time>
+			<time class="post-date">{{data.article.addtime| date('Y-m-d h:i:s',-8*60)}}</time>
 			<span class="author">阅读：{{data.article.views}}</span>
 			<span class="author">评论：<span ref="stotal"></span></span>
 		</div>
@@ -43,14 +43,21 @@
 	</div>
 	<div class="post-content">
 		<div class="comment-list">
-			<ul v-if="comments.length!=0">
-				<li v-for="item in comments">
-					<p class="author"><span v-text="item.postTime"></span><mark v-text="item.user"></mark></p>
+			<ul v-if="pagecomments.length!=0">
+				<li v-for="item in pagecomments">
+					<p class="author"><span v-html="transTime(item.postTime)"></span><mark v-text="item.user"></mark></p>
 					<p class="author" v-text="item.content"></p>
 				</li>
 			</ul>
 			<div v-else>没有评论</div>
 		</div>
 	</div>
+	<nav aria-label="Page navigation">
+		<ul class="pager">
+			<li><a href="javascript:;" @click = 'go(-1)'><span v-text="show(-1)"></span></a></li>
+			<li v-html="page()"></li>
+			<li><a href="javascript:;" @click = 'go(1)'><span v-text="show(1)"></span></a></li>
+		</ul>
+	</nav>
 </div>
 {% endblock %}
